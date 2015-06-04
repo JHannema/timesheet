@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Mock Test</title>
+    <link rel="stylesheet" type="text/css" href="css/grid.css">
+    <link rel="stylesheet" href="js/jquery-ui.css">
+    <script src="js/grid.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+</head>
+
+<body>
+<div id="selectMonthYear">
+    <label id="labelMonth" class="bold"></label>
+    <label id="labelYear" class="bold"></label>
+    <label id="labelJsonError" class="labelJsonError"></label>
+</div>
+<br><br>
+<div>
+    <label>Jaar: </label>
+    <select id="yearSelected">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+    </select>
+
+    <select id="monthSelected">
+        <script>
+            for (i=1;i<13;i++) {
+                document.write("<option value=\""+i+"\"" + ">"+i+"</option>");
+            }
+        </script>
+    </select>
+    <button onclick="selectMonth()">Selecteer</button>
+</div>
+<input id="savedField" value="x" type="hidden">
+<br/>
+<div>
+    <label>Code: </label>
+    <select id="selectType" onchange="processLeaveTypeSelect()">
+        <option value=""> </option>
+        <option value="atv">ATV</option>
+        <option value="vrij">Vrij</option>
+        <option value="z">Ziek</option>
+    </select>
+    <button onclick="clearFieldValue()">Leegmaken</button>
+</div>
+<br/>
+<hr>
+<div id="tablePlaceholder">
+</div>
+
+</body>
+</html>

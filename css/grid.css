@@ -1,0 +1,37 @@
+body{
+    /* Set the overall font*/
+    font-family:arial, serif;
+}
+.wrapperHeader {
+    width: 1200px;
+    /*border: 1px solid black;*/
+}
+.wrapper {
+    width: 1200px;
+    /*border: 1px solid black;*/
+}
+.name {
+    width: 140px;
+    border: 1px solid red;
+    float: left;
+}
+.day {
+    width: 30px;
+    border: 1px solid green;
+    float: left;
+    text-align: center;
+    /*vertical-align: bottom;*/
+}
+.bold {
+    font-weight: bold;
+}
+.labelJsonError {
+    font-weight: bold;
+    color: red;
+}
+.selectedField {
+    background-color: #B5B591;
+}
+.deSelectedField {
+    background-color: #FFFFFF;
+}
