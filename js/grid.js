@@ -49,46 +49,17 @@ function persist(){
 }
 
 function buildJsonFromHtml(){
+    var jsonFromHTML;
     var rosterData = "[{ \"name\": \"Joram\", \"days\":{ \"day\":             [                {\"dayNumber\": 1, \"typeOfLeave\": \"atv\"},                {\"dayNumber\": 2, \"typeOfLeave\": \"vrij\"},                {\"dayNumber\": 3, \"typeOfLeave\": \"vri\"},                {\"dayNumber\": 15, \"typeOfLeave\": \"atv\"}              ]    }  },  {    \"name\": \"Eline\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 14, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vri\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 28, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Marlies\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"atv\"},       {\"dayNumber\": 15, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Melvin\",    \"days\":    {      \"day\":      [        {\"dayNumbe\":11, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Kathy\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  }]"
 
-    //alert($('.wrapper').length);
-
-    /*var data = $('.wrapper').map(function() {
-        return {
-            classname: 'name',
-            content: $(this).text()
-        };
-    }).get();
-
-    console.log(data);*/
-
-    $( ".name" ).each(function( index ) {
-        console.log( index + ": name=" + $( this ).text() );
-    });
-
-    $( ".day" ).each(function( index ) {
-        if ($( this ).text() != " "){
-            console.log( index + ": |" + $( this ).text() +"|");
-            alert("|" + $( this ).text() +"|");
+    // Select the table holding the data
+    $( '.day' ).each(function( index ) {
+        if($( this ).text() != " ") {
+            var row = Math.floor((index + 31) / 31);
+            var day = index + 1 - ((row -1) * 31);
+            console.log( "Rij: " + row + " Dag:" + day + " : " + $( this ).text() );
         }
     });
-
-    return rosterData;
-}
-
-
-function buildJsonFromHtml2(){
-    var rosterData = "[{ \"name\": \"Joram\", \"days\":{ \"day\":             [                {\"dayNumber\": 1, \"typeOfLeave\": \"atv\"},                {\"dayNumber\": 2, \"typeOfLeave\": \"vrij\"},                {\"dayNumber\": 3, \"typeOfLeave\": \"vri\"},                {\"dayNumber\": 15, \"typeOfLeave\": \"atv\"}              ]    }  },  {    \"name\": \"Eline\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 14, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vri\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 28, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Marlies\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"atv\"},       {\"dayNumber\": 15, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Melvin\",    \"days\":    {      \"day\":      [        {\"dayNumbe\":11, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Kathy\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  }]"
-
-    //alert($('.wrapper').length);
-
-    /*var tbl = $('.wrapper').map(function() {
-        return $(this).find('.day').map(function() {
-            return $(this).html();
-        }).get();
-    }).get();
-
-    console.log(tbl);*/
 
     return rosterData;
 }
@@ -136,7 +107,7 @@ function buildTableFromJson(jsonData, days) {
     tableHtml += "Naam";
     tableHtml += "</div>";
     for (t=1;t<=days;t++) {
-        tableHtml += "<div class=\"day\">"+t+"</div>";
+        tableHtml += "<div class=\"dayHeader\">"+t+"</div>";
     }
     tableHtml += "</div>";
 
@@ -174,5 +145,6 @@ function buildTableFromJson(jsonData, days) {
 }
 
 function daysInMonth(month,year) {
-    return new Date(year, month, 0).getDate();
+    var daysInCurrentMonth = new Date(year, month, 0).getDate();
+    return daysInCurrentMonth;
 }

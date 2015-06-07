@@ -15,7 +15,7 @@ body{
     border: 1px solid red;
     float: left;
 }
-.day {
+.day, .dayHeader{
     width: 30px;
     border: 1px solid green;
     float: left;

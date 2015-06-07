@@ -1,8 +1,9 @@
-- maak de lijstjes en meldingen configurabel
-- voorwaards en terug tussen maanden
-- op een dag klikken selecteert alle dagen van iedereen t.b.v. feestdag
-- zet de achtergrond op zwart bij ziek en de tekst op wit
-
-
-
-
+- traverse the dom, create Json and persist Json file
+- when selecting a month for which no Json yet exists, create it
+- make the lists and messages configurable
+- navigate forwards and backwards in time
+- select a day to alter the days of all people (in case of a bank holiday)
+- add a legend to the page
+- add a function to add or remove people
+- add a person to a department
+- add department as a selection to the form
