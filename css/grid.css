@@ -10,7 +10,7 @@ body{
     width: 1200px;
     /*border: 1px solid black;*/
 }
-.name {
+.name, .nameHeader {
     width: 140px;
     border: 1px solid red;
     float: left;

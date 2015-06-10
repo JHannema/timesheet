@@ -5,6 +5,9 @@
  * function setFieldForSelect can be called from each cell in the grid
  * and is used to select the field on which the value will be set
  * */
+
+var users = new Array();
+
 function setFieldForSelect(fieldId) {
     // Save the field that was clicked in 'savedField'
     // If the field clicked (fieldId) is different than the one saved,
@@ -38,30 +41,22 @@ function processLeaveTypeSelect(){
     }
     $("#selectType").prop('selectedIndex',0);
 
+    alert(fieldToUpdate);
     // write back to Json
     persist();
 }
 
 function persist(){
-    var jsonData = buildJsonFromHtml();
-    var rosterData = "[{ \"name\": \"Joram\", \"days\":{ \"day\":[{\"dayNumber\": 1, \"typeOfLeave\": \"atv\"},{\"dayNumber\": 2, \"typeOfLeave\": \"vrij\"},{\"dayNumber\": 3,\"typeOfLeave\": \"vri\"},{\"dayNumber\": 15, \"typeOfLeave\": \"atv\"}]}},{\"name\": \"Eline\",\"days\":{\"day\":[{\"dayNumber\": 14, \"typeOfLeave\": \"atv\"},{\"dayNumber\": 15, \"typeOfLeave\": \"vri\"},{\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},{\"dayNumber\": 28, \"typeOfLeave\": \"atv\"}]    }  },  {    \"name\": \"Marlies\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"atv\"},       {\"dayNumber\": 15, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Melvin\",    \"days\":    {      \"day\":      [        {\"dayNumbe\":11, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Kathy\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  }]"
-    $.post("post_json.php", {json : JSON.stringify(rosterData)});
-}
+    for(k=0; k<users.length; k++) {
+        alert(users[k].name + " (" + users[k].userid + ")");
+    }
+    return;
+    $.ajax({
+        type: "POST",
+        url: "post_json.php",
+        data: {json : JSON.stringify(jsonData)},
 
-function buildJsonFromHtml(){
-    var jsonFromHTML;
-    var rosterData = "[{ \"name\": \"Joram\", \"days\":{ \"day\":             [                {\"dayNumber\": 1, \"typeOfLeave\": \"atv\"},                {\"dayNumber\": 2, \"typeOfLeave\": \"vrij\"},                {\"dayNumber\": 3, \"typeOfLeave\": \"vri\"},                {\"dayNumber\": 15, \"typeOfLeave\": \"atv\"}              ]    }  },  {    \"name\": \"Eline\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 14, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vri\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 28, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Marlies\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"atv\"},       {\"dayNumber\": 15, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"z\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Melvin\",    \"days\":    {      \"day\":      [        {\"dayNumbe\":11, \"typeOfLeave\": \"atv\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  },  {    \"name\": \"Kathy\",    \"days\":    {      \"day\":      [        {\"dayNumber\": 11, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 15, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 16, \"typeOfLeave\": \"vrij\"},        {\"dayNumber\": 25, \"typeOfLeave\": \"atv\"}      ]    }  }]"
-
-    // Select the table holding the data
-    $( '.day' ).each(function( index ) {
-        if($( this ).text() != " ") {
-            var row = Math.floor((index + 31) / 31);
-            var day = index + 1 - ((row -1) * 31);
-            console.log( "Rij: " + row + " Dag:" + day + " : " + $( this ).text() );
-        }
     });
-
-    return rosterData;
 }
 
 function clearFieldValue(){
@@ -69,6 +64,9 @@ function clearFieldValue(){
     if(fieldToUpdate != "#x"){
         $(fieldToUpdate).html("&nbsp;");
     }
+
+    // write back
+    persist();
 }
 
 function selectMonth(){
@@ -84,6 +82,7 @@ function selectMonth(){
 function loadJsonAndBuildTable(month, year){
 //    var fileName = "verlof_"+month+"_"+year;
     var fileName = "people.json";
+    //fileName = "TEST.json";
     var fileDir = "data/";
     console.log("trying to load json file: " + fileDir + fileName);
 
@@ -97,13 +96,12 @@ function loadJsonAndBuildTable(month, year){
 }
 
 function buildTableFromJson(jsonData, days) {
-    alert("dagen:" + days);
     console.log("Building table from Json file");
     var tableHtml = "";
 
     /*Write the table head*/
     tableHtml += "<div class=\"wrapperHeader\">";
-    tableHtml += "<div class=\"name bold\">";
+    tableHtml += "<div class=\"nameHeader bold\">";
     tableHtml += "Naam";
     tableHtml += "</div>";
     for (t=1;t<=days;t++) {
@@ -117,6 +115,14 @@ function buildTableFromJson(jsonData, days) {
         tableHtml +="<div class=\"name\" id=\""+nameFieldId+"\">";
         tableHtml += jsonData[i].name;
         tableHtml += "</div>";
+
+        //alert(jsonData[i]['userid']);
+        alert(JSON.stringify(jsonData[i]));
+
+
+        // Build a global list of users
+        user = {name:jsonData[i].name, userid:jsonData[i].id};
+        users[i] = user;
 
         var fieldId;
         var row = i;

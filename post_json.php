@@ -1,10 +1,15 @@
 <?php
-  $json = $_POST['json'];
+  $user  = $_POST['user'];
+  $day   = $_POST['day'];
+  $month = $_POST['month'];
+  $year  = $_POST['year'];
+  $leave = $_POST['leave'];
 
-  if (json_decode($json) != null) {
-    $file = fopen('json/people2.json','w+');
-    fwrite($file, $json);
-    fclose($file);
+  if ($user != null) {
+    /*POST*/
+      /*  $file = fopen('data/TEST.json','w');
+        fwrite($file, $json);
+        fclose($file);*/
   } else {
     echo "error writing file";
   }

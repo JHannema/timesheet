@@ -1,6 +1,7 @@
 [
   {
     "name": "Joram",
+    "id": 1,
     "days":
     {
       "day":
@@ -14,6 +15,7 @@
   },
   {
     "name": "Eline",
+    "id": 2,
     "days":
     {
       "day":
@@ -27,6 +29,7 @@
   },
   {
     "name": "Marlies",
+    "id": 3,
     "days":
     {
       "day":
@@ -40,6 +43,7 @@
   },
   {
     "name": "Melvin",
+    "id": 4,
     "days":
     {
       "day":
@@ -53,6 +57,7 @@
   },
   {
     "name": "Kathy",
+    "id": 5,
     "days":
     {
       "day":
@@ -61,6 +66,20 @@
         {"dayNumber": 15, "typeOfLeave": "vrij"},
         {"dayNumber": 16, "typeOfLeave": "vrij"},
         {"dayNumber": 25, "typeOfLeave": "atv"}
+      ]
+    }
+  },
+  {
+    "name": "TEST",
+    "id": 6,
+    "days":
+    {
+      "day":
+      [
+        {"dayNumber": 4, "typeOfLeave": "vrij"},
+        {"dayNumber": 14, "typeOfLeave": "vrij"},
+        {"dayNumber": 17, "typeOfLeave": "vrij"},
+        {"dayNumber": 27, "typeOfLeave": "atv"}
       ]
     }
   }
